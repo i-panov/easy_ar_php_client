@@ -1,0 +1,13 @@
+{
+    "name": "i-panov/easy-ar-client",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "IPanov\\EasyArClient\\": "src/"
+        }
+    },
+    "require": {
+        "php":  ">=7.4",
+        "symfony/http-client": "^6.1"
+    }
+}
