@@ -80,7 +80,7 @@ class EasyArClient
     //-------------------------------------------------------
 
     private function request(string $method, string $url, array $options, string $resultPath) {
-        $response = $this->httpClient->request('GET', '/ping');
+        $response = $this->httpClient->request($method, $url, $options);
         $result = $response->toArray();
         $resultPathParts = explode('.', $resultPath);
 
