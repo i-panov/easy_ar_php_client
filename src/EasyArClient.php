@@ -111,7 +111,7 @@ class EasyArClient
      */
     private function getSignature(array $params): string {
         ksort($params);
-        $raw = implode('', array_map(fn($value, $key) => $key . $value, $params));
+        $raw = implode('', array_map(fn($value, $key) => $key . $value, $params, array_keys($params)));
         return hash('sha256', $raw . $this->apiSecret);
     }
 
