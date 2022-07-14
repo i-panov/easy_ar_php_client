@@ -33,7 +33,7 @@ class EasyArClient
 
     //-------------------------------------------------------
 
-    public function ping(): ?string {
+    public function ping(): string {
         return $this->request('GET', '/ping', [], 'result.message');
     }
 
@@ -67,7 +67,7 @@ class EasyArClient
         return $this->targetRequest('DELETE', "/target/$id", ['query' => $params], 'result');
     }
 
-    public function detectGrade(Image $image): ?int {
+    public function detectGrade(Image $image): int {
         $params = $this->getSignedParams(['image' => $image->encodedContent()]);
         return $this->request('POST', '/grade/detection/', ['json' => $params], 'result.grade');
     }
