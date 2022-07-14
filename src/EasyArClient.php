@@ -54,7 +54,7 @@ class EasyArClient
 
     public function create(UploadTargetRequest $request): ?Target {
         $params = $this->getSignedParams($request->toArray());
-        return $this->targetRequest('POST', '/targets/', ['json' => $params], 'result.target');
+        return $this->targetRequest('POST', '/targets/', ['json' => $params], 'result');
     }
 
     public function update(string $id, UploadTargetRequest $request): ?Target {
