@@ -2,6 +2,7 @@
 
 namespace IPanov\EasyArClient;
 
+use IPanov\EasyArClient\Exceptions\EasyArException;
 use IPanov\EasyArClient\Models\Image;
 use IPanov\EasyArClient\Models\Target;
 use IPanov\EasyArClient\Models\UploadTargetRequest;
@@ -82,6 +83,13 @@ class EasyArClient
     private function request(string $method, string $url, array $options, string $resultPath) {
         $response = $this->httpClient->request($method, $url, $options);
         $result = $response->toArray();
+        $statusCode = (int)($result['statusCode'] ?? 0);
+
+        if ($statusCode !== 0) {
+            $error = (string)($result['result'] ?? '');
+            throw new EasyArException($error, $statusCode);
+        }
+
         $resultPathParts = explode('.', $resultPath);
 
         foreach ($resultPathParts as $part) {
@@ -116,7 +124,7 @@ class EasyArClient
     }
 
     private function targetRequest(string $method, string $url, array $options, string $resultPath, bool $asArray = false) {
-        $result = $this->request($method, $url, $options, $resultPath);
+        $result = (array)$this->request($method, $url, $options, $resultPath);
 
         if (!$asArray) {
             return $result ? new Target($result) : null;
