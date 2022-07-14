@@ -17,6 +17,7 @@ class Target
         $this->trackingImage = $data['trackingImage'];
         $this->name = $data['name'];
         $this->width = $data['size'];
+        $this->meta = $data['meta'];
         $this->type = $data['type'];
         $this->active = (bool)($data['active'] ?? false);
     }
