@@ -44,12 +44,12 @@ class EasyArClient
             'pageSize' => $pageSize,
         ]);
 
-        return $this->targetRequest('GET', '/targets/infos', ['json' => $params], 'result.targets', true);
+        return $this->targetRequest('GET', '/targets/infos', ['query' => $params], 'result.targets', true);
     }
 
     public function get(string $id): ?Target {
         $params = $this->getSignedParams();
-        return $this->targetRequest('GET', "/target/$id", ['json' => $params], 'result');
+        return $this->targetRequest('GET', "/target/$id", ['query' => $params], 'result');
     }
 
     public function create(UploadTargetRequest $request): ?Target {
@@ -63,8 +63,8 @@ class EasyArClient
     }
 
     public function remove(string $id): ?Target {
-        $url = "/target/$id?" . http_build_query($this->getSignedParams());
-        return $this->targetRequest('DELETE', $url, [], 'result');
+        $params = $this->getSignedParams();
+        return $this->targetRequest('DELETE', "/target/$id", ['query' => $params], 'result');
     }
 
     public function detectGrade(Image $image): ?int {
